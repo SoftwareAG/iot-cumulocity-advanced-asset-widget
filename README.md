@@ -1,5 +1,20 @@
 # Advanced Asset Widget for Cumulocity IoT platform
-You can find a working demo under the demo folder. If you want to build the widget and use it right away, cd into the runtime-widget-template folder and follow the steps outlined there. The id of the widget is advanced.asset.widget
+This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid.
+Reason is that this grid already offers builtin functionality such as:
+- pagination
+- lazy loading
+- filter
+- sort
+- mobile layout
+and is continously maintained and improved by the Cumulocity RnD team.
+
+## Target of this repository
+
+The target is to showcase the c8y-data-grid by building a customizable asset widget. You can easily buid upon it and enhance the functionalities because of the feature richness of the c8y-data-grid. 
+
+## Structure of this repository
+
+You can find a working demo under the demo folder. If you want to deplyo the widget right away on your tenant, cd into the runtime-widget-template folder and follow the steps outlined there. The id of the widget is advanced.asset.widget.
 ##  Demo
 
 The demo is based on the latest tutorial app, cut down to just the dashboard components and with the advanced asset widget added. 
