@@ -1,3 +1,5 @@
+![Sample image of the advanced asset widget](./runtime-widget-template/styles/previewImage.png)
+
 # Advanced Asset Widget for Cumulocity IoT platform
 This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid.
 Reason is that this grid already offers builtin functionality such as:
