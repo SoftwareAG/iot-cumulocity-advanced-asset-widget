@@ -1,12 +1,13 @@
+# Advanced Asset Widget for Cumulocity IoT platform
+
 ![Sample image of the advanced asset widget](./runtime-widget-template/styles/previewImage.png)
 
-# Advanced Asset Widget for Cumulocity IoT platform
-This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid.
-Reason is that this grid already offers builtin functionality such as:
+This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid, as
+it already offers builtin functionality such as:
 - pagination
 - lazy loading
-- filter
-- sort
+- filtering
+- sortation
 - mobile layout
 and is continously maintained and improved by the Cumulocity RnD team.
 
@@ -35,13 +36,13 @@ npm run start -u https://your.tenant.com/
 npm run start
 ```
 
-## Changes
+## Contribution
 
 When doing changes on the code please also update the demo code:
 
 1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget
 
-2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css' and previewImage: require("~styles/previewImage.png")
+2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css'
 
 ------------------------------
 
