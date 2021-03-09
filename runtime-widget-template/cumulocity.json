@@ -1,10 +1,10 @@
 {
   "name": "Advanced Asset Widget",
-  "contextPath": "cumulocity-advanced-asset-widget",
-  "key": "cumulocity-advanced-asset-widget-application-key",
+  "contextPath": "advanced-asset-widget",
+  "key": "advanced-asset-widget-application-key",
   "contentSecurityPolicy": "default-src 'self'",
   "icon": {
-    "class": "c8y-grid"
+    "class": "fa fa-puzzle-piece"
   },
   "manifest": {
     "noAppSwitcher": true

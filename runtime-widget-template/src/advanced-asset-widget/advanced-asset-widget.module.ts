@@ -37,7 +37,7 @@ const routes = [];
       provide: HOOK_COMPONENTS,
       multi: true,
       useValue: {
-        id: "advanced.asset.widget",
+        id: "com.softwareag.advanced.asset.widget",
         label: "Advanced Asset widget",
         description:
           "Shows a configurable grid of the child assets of a device or group",
@@ -47,15 +47,16 @@ const routes = [];
         previewImage: require("~styles/previewImage.png"),
         data: {
           settings: {
-            noNewWidgets: false,          // Set this to true, to don't allow adding new widgets.
-            ng1: {
-              options: {
-                noDeviceTarget: false,     // Set this to true to hide the device selector.
-                groupsSelectable: true,  // Set this, if not only devices should be selectable.
-              }
-            }
-          }
-        } as ContextWidgetConfig
+            noNewWidgets: false, // Set this to true, to don't allow adding new widgets.
+            groupsSelectable: true,
+            // ng1: {
+            //   options: {
+            //     noDeviceTarget: false,     // Set this to true to hide the device selector.
+            //     groupsSelectable: true,  // Set this, if not only devices should be selectable.
+            //   }
+            // }
+          },
+        } as ContextWidgetConfig,
       },
     },
   ],
