@@ -6,7 +6,8 @@ import { FormsModule } from "@angular/forms";
 import { CoreModule, HOOK_COMPONENTS } from "@c8y/ngx-components";
 
 import { AdvancedAssetWidgetComponent } from "./advanced-asset-widget.component";
-import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
+import { AdvancedAssetWidgetConfigComponent } from "./advanced-asset-widget-config.component";
+import { ContextWidgetConfig } from "@c8y/ngx-components/context-dashboard";
 
 // This will import css from the styles folder (Note: will be applied globally, not scoped to the module/components)
 // comment this if you want to test the widget
@@ -23,8 +24,14 @@ const routes = [];
     RouterModule.forChild(routes),
     CoreModule,
   ],
-  declarations: [AdvancedAssetWidgetComponent, AdvancedAssetWidgetConfig],
-  entryComponents: [AdvancedAssetWidgetComponent, AdvancedAssetWidgetConfig],
+  declarations: [
+    AdvancedAssetWidgetComponent,
+    AdvancedAssetWidgetConfigComponent,
+  ],
+  entryComponents: [
+    AdvancedAssetWidgetComponent,
+    AdvancedAssetWidgetConfigComponent,
+  ],
   providers: [
     {
       provide: HOOK_COMPONENTS,
@@ -35,14 +42,20 @@ const routes = [];
         description:
           "Shows a configurable grid of the child assets of a device or group",
         component: AdvancedAssetWidgetComponent,
-        configComponent: AdvancedAssetWidgetConfig,
+        configComponent: AdvancedAssetWidgetConfigComponent,
         // comment this if you want to test the widget
-        // previewImage: require("~styles/previewImage.png"),
-        // data: {
-        //     settings: {
-        //         noDeviceTarget: true
-        //     }
-        // }
+        previewImage: require("./previewImage.png"),
+        data: {
+          settings: {
+            noNewWidgets: false,          // Set this to true, to don't allow adding new widgets.
+            ng1: {
+              options: {
+                noDeviceTarget: false,     // Set this to true to hide the device selector.
+                groupsSelectable: true,  // Set this, if not only devices should be selectable.
+              }
+            }
+          }
+        } as ContextWidgetConfig
       },
     },
   ],

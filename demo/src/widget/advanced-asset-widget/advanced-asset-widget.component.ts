@@ -1,11 +1,11 @@
 import { Component, Input } from "@angular/core";
 import {
   ActionControl,
-  BuiltInActionType,
   BulkActionControl,
   Column,
   ColumnDataType,
 } from "@c8y/ngx-components";
+import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
 import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasource.service";
 
 @Component({
@@ -21,9 +21,11 @@ import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasourc
   ],
 })
 export class AdvancedAssetWidgetComponent {
-  @Input() set config(cfg: any) {
+  @Input() set config(cfg: AdvancedAssetWidgetConfig) {
+    this.title = cfg.title;
     this.datasource.config = cfg;
   }
+  title: string;
   columns: Column[];
 
   actionControls: ActionControl[] = [

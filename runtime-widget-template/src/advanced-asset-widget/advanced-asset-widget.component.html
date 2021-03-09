@@ -1,11 +1,11 @@
 <div class="p-16">
   <c8y-data-grid
-    [title]="'Devices' | translate"
+    [title]="title ? title : 'Assets' | translate"
     class="sort-fix"
     [noMatchingItemsLabel]="'No matching devices.'"
     [columns]="columns"
     [pagination]="datasource.pagination"
-    [selectable]="true"
+    [selectable]="false"
     [actionControls]="actionControls"
     [bulkActionControls]="bulkActionControls"
     (itemsSelect)="handleItemsSelect($event)"

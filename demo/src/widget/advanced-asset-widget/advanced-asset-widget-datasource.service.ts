@@ -12,6 +12,7 @@ import {
   IManagedObject,
   IdReference,
 } from "@c8y/client";
+import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
 
 @Injectable()
 export class AdvancedAssetWidgetDatasource {
@@ -25,18 +26,14 @@ export class AdvancedAssetWidgetDatasource {
 
   private readonly queriesUtil = new QueriesUtil();
 
-  set config(cfg: any) {
-    console.log(JSON.stringify(cfg));
-    const identifier = +cfg.groupOrDeviceId;
-    if (identifier !== NaN) {
-      this.groupId = +cfg.groupOrDeviceId;
-    }
+  set config(cfg: AdvancedAssetWidgetConfig) {
+    this.groupOrDeviceId = cfg && cfg.device ? cfg.device.id : -1;
     //   this.BASE_QUERY = {
     //       fragmentType: 'c8y_IsGroup',
     //       id: cfg.id
     //   }
   }
-  private groupId: IdReference;
+  private groupOrDeviceId: IdReference = -1;
   /**
    * The query to be used if the table loads without any column filters.
    */
@@ -55,12 +52,12 @@ export class AdvancedAssetWidgetDatasource {
     const allQuery = this.createQueryFilter([]);
 
     const devices = this.fetchForPage(
-      this.groupId,
+      this.groupOrDeviceId,
       filterQuery,
       dataSourceModifier.pagination
     );
-    const filtered = this.fetchCount(this.groupId, filterQuery);
-    const total = this.fetchCount(this.groupId, allQuery);
+    const filtered = this.fetchCount(this.groupOrDeviceId, filterQuery);
+    const total = this.fetchCount(this.groupOrDeviceId, allQuery);
     const [devicesResponse, filteredSize, size] = await Promise.all([
       devices,
       filtered,
