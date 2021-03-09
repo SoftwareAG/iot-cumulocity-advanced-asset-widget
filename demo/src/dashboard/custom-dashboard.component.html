@@ -1,0 +1,126 @@
+<c8y-title translate>Custom dashboard</c8y-title>
+
+<p class="lead">
+  The basic custom dashboard is a core functionality that can be used for many different drag&drop scenarios. It contains only the basics and does 
+  not provide any helper for the well known widget dashboards.
+</p>
+
+<c8y-action-bar-item [placement]="'right'">
+  <button class="btn btn-link" (click)="addRandom()"><i class="fa fa-plus"></i> Add random</button>
+</c8y-action-bar-item>
+<c8y-action-bar-item [placement]="'right'">
+  <button class="btn btn-link" (click)="isFrozen = !isFrozen">
+    <i [c8yIcon]="isFrozen ? 'lock' : 'unlock'"></i> Toggle freeze
+  </button>
+</c8y-action-bar-item>
+
+<c8y-dashboard (dashboardChange)="dashboardChange($event)">
+  <c8y-dashboard-child
+    [isFrozen]="isFrozen"
+    title="dynamic"
+    *ngFor="let widget of widgets"
+    [data]="widget"
+    [width]="widget.width"
+    [height]="widget.height"
+    [class]="{
+      'panel-title-hidden': true
+    }"
+    #current
+  >
+    x: {{ current.x }}<br />
+    y: {{ current.y }}<br />
+    width: {{ current.width }}<br />
+    height: {{ current.height }}<br />
+  </c8y-dashboard-child>
+  <c8y-dashboard-child
+    #cpWidget
+    [isFrozen]="isFrozen"
+    [x]="0"
+    [y]="1"
+    [width]="3"
+    [height]="2"
+    [class]="{
+      'panel-content-branded': true,
+      'panel-title-overlay': true
+    }"
+  >
+    <c8y-dashboard-child-title>
+      <span>World!</span>
+    </c8y-dashboard-child-title>
+    x: {{ cpWidget.x }}<br />
+    y: {{ cpWidget.y }}<br />
+    width: {{ cpWidget.width }}<br />
+    height: {{ cpWidget.height }}<br />
+  </c8y-dashboard-child>
+  <c8y-dashboard-child
+    #cpWidget2
+    [isFrozen]="isFrozen"
+    [x]="8"
+    [y]="1"
+    [width]="4"
+    [height]="4"
+    [class]="{ 'panel-content-dark': true }"
+  >
+    <c8y-dashboard-child-title>
+      <span>Hello!</span>
+    </c8y-dashboard-child-title>
+    <c8y-dashboard-child-action>
+      <a href="" (click)="cpWidget2.isFrozen = !cpWidget2.isFrozen; (false)">
+        <i [c8yIcon]="cpWidget2.isFrozen ? 'lock' : 'unlock'"></i> Toggle freeze
+      </a>
+    </c8y-dashboard-child-action>
+    x: {{ cpWidget2.x }}<br />
+    y: {{ cpWidget2.y }}<br />
+    width: {{ cpWidget2.width }}<br />
+    height: {{ cpWidget2.height }}<br />
+  </c8y-dashboard-child>
+
+  <c8y-dashboard-child
+    #cpWidget3
+    [isFrozen]="isFrozen"
+    [x]="0"
+    [y]="3"
+    [width]="4"
+    [height]="4"
+    [class]="{ 'panel-content-transparent': true }"
+  >
+    <c8y-dashboard-child-title *ngIf="showTitle">
+      <span>Transparent!</span>
+    </c8y-dashboard-child-title>
+    <c8y-dashboard-child-action>
+      <a href="" (click)="showTitle = !showTitle; (false)">
+        <i [c8yIcon]="'heading'"></i> Hide/show title
+      </a>
+    </c8y-dashboard-child-action>
+    <c8y-dashboard-child-action>
+      <a href="" (click)="cpWidget3.isFrozen = !cpWidget3.isFrozen; (false)">
+        <i [c8yIcon]="cpWidget3.isFrozen ? 'lock' : 'unlock'"></i> Toggle freeze
+      </a>
+    </c8y-dashboard-child-action>
+    x: {{ cpWidget3.x }}<br />
+    y: {{ cpWidget3.y }}<br />
+    width: {{ cpWidget3.width }}<br />
+    height: {{ cpWidget3.height }}<br />
+  </c8y-dashboard-child>
+
+  <!-- A dashboard child with a dynamic component -->
+  <c8y-dashboard-child
+    [isFrozen]="isFrozen"
+    [width]="10"
+    [height]="4"
+  >
+    <c8y-dashboard-child-title>
+      <span>Dynamic component demo</span>
+    </c8y-dashboard-child-title>
+    <c8y-dashboard-child-action>
+      <a href="" (click)="editComponent = !editComponent; (false)">
+        <i [c8yIcon]="'cog'"></i> Configure this widget
+      </a>
+    </c8y-dashboard-child-action>
+    <c8y-dynamic-component
+      componentId="angular.widget.demo"
+      [config]="{ text: 'Hello world' }"
+      [mode]="editComponent ? 'config' : 'component'"
+    ></c8y-dynamic-component>
+  </c8y-dashboard-child>
+</c8y-dashboard>

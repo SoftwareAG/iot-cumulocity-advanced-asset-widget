@@ -1,0 +1,30 @@
+<c8y-title translate>Widget dashboard</c8y-title>
+
+<p class="lead">
+  These dashboards already contains the basic functions (add, remove) but only define events and doesn't define what should 
+  happen on each event. The functionality is only added, if a event is added. In this example, the delete event handler is not implemented.
+</p>
+
+<c8y-widgets-dashboard
+  [context]="{}"
+  [widgets]="widgets"
+  [settings]="{
+    isLoading: false,
+    isDisabled: false,
+    canDelete: false,
+    translateWidgetTitle: false,
+    allowFullscreen: true,
+    title: false
+  }"
+  (onFreeze)="toggleFreeze($event)"
+  (onChangeDashboard)="change($event)"
+  (onAddWidget)="addWidget()"
+  (onEditWidget)="editWidget($event)"
+  (onEditDashboard)="editDashboard()"
+>
+<!--
+  Not added to demo that the functionality is gone then:
+  (onDeleteWidget)="deleteWidget($event)"
+  (onDeleteDashboard)="deleteDashboard($event)"
+-->
+</c8y-widgets-dashboard>

@@ -1,63 +1,27 @@
-# Cumulocity IoT Runtime Widget Template
-Template widget for runtime loading in Cumulocity IoT using the [Cumulocity IoT Runtime Widget Loader](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader) (written by Software AG Global Presales)
+# Advanced Asset Widget for Cumulocity IoT platform
+You can find a working demo under the demo folder. If you want to build the widget and use it right away, cd into the runtime-widget-template folder and follow the steps outlined there. The id of the widget is advanced.asset.widget
+##  Demo
 
-##  Building a Widget
-1. Clone this repo: 
-```
-git clone https://github.com/SoftwareAG/cumulocity-runtime-widget.git
-```
-2. Install the dependencies:
-```
-cd cumulocity-runtime-widget
-npm install
-```
-3. Copy your widget's code into the src folder (or a subfolder).
-4. Reference your widget's Angular module in the public_api.ts (Comment out or delete the DemoWidgetModule)
-```typescript
-/* Add your widget's module(s) here */
+The demo is based on the latest tutorial app, cut down to just the dashboard components and with the advanced asset widget added. 
 
-// export {DemoWidgetModule} from "./demo-widget/demo-widget.module";
-export {YourWidgetModule} from "./your-widget/your-widget.module";
+1. Install the dependencies:
 ```
-5. Pick a **unique** contextPath for your widget, eg:
+cd demo
+npm i --legacy-peer-deps
 ```
-my-widget
+2. Run
 ```
-6. Edit the **name** and **interleave** values in the package.json to include the new contextPath:<br>
-**Important:** Leave the `-CustomWidget` on the interleave option, and don't edit the `dist/bundle-src/custom-widget.js` part
-```json
-{
-  "name": "my-widget",
-  "interleave": {
-    "dist\\bundle-src\\custom-widget.js": "my-widget-CustomWidget",
-    "dist/bundle-src/custom-widget.js": "my-widget-CustomWidget"
-  },
-}
+npm run start
 ```
+3. Navigate to the dashboard
 
-7. Edit the **contextPath** and **applicationKey** values in the cumulocity.json file to include the contextPath (Feel free to edit the name and icon):
-```json
-{
-  "name": "My Widget",
-  "contextPath": "my-widget",
-  "key": "my-widget-application-key",
-  "contentSecurityPolicy": "default-src 'self'",
-  "icon": {
-    "class": "fa fa-puzzle-piece"
-  },
-  "manifest": {
-    "noAppSwitcher": true
-  }
-}
-```
-8. Build the widget:
-```
-npm run build
-```
-9. After the build completes the `/dist` folder will contain a `widget.zip` file, this is your deployable widget
+## Changes
 
-## Deploying a Widget
-See the documentation for the [Cumulocity IoT Runtime Widget Loader](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader)
+When doing changes on the code please also update the demo code:
+
+1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget
+
+2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css' and previewImage: require("~styles/previewImage.png")
 
 ------------------------------
 
