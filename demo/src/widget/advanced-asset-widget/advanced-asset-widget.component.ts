@@ -27,18 +27,18 @@ export class AdvancedAssetWidgetComponent {
   columns: Column[];
 
   actionControls: ActionControl[] = [
-    { type: BuiltInActionType.Delete, callback: (item) => console.dir(item) },
-    { type: BuiltInActionType.Edit, callback: (item) => console.dir(item) },
+    // { type: BuiltInActionType.Delete, callback: (item) => console.dir(item) },
+    // { type: BuiltInActionType.Edit, callback: (item) => console.dir(item) },
   ];
   bulkActionControls: BulkActionControl[] = [
-    {
-      type: BuiltInActionType.Export,
-      callback: (selectedItemIds) => console.dir(selectedItemIds),
-    },
-    {
-      type: BuiltInActionType.Delete,
-      callback: (selectedItemIds) => console.dir(selectedItemIds),
-    },
+    // {
+    //   type: BuiltInActionType.Export,
+    //   callback: (selectedItemIds) => console.dir(selectedItemIds),
+    // },
+    // {
+    //   type: BuiltInActionType.Delete,
+    //   callback: (selectedItemIds) => console.dir(selectedItemIds),
+    // },
   ];
 
   constructor(public datasource: AdvancedAssetWidgetDatasource) {
