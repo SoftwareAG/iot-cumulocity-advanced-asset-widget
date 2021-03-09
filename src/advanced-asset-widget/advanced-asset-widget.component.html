@@ -1,0 +1,25 @@
+<div class="p-16">
+  <c8y-data-grid
+    [title]="'Devices' | translate"
+    class="sort-fix"
+    [noMatchingItemsLabel]="'No matching devices.'"
+    [columns]="columns"
+    [pagination]="datasource.pagination"
+    [selectable]="true"
+    [actionControls]="actionControls"
+    [bulkActionControls]="bulkActionControls"
+    (itemsSelect)="handleItemsSelect($event)"
+    [serverSideDataCallback]="datasource.serverSideDataCallback"
+  >
+    <c8y-column name="id">
+      <ng-container *c8yCellRendererDef="let context">
+        <a [routerLink]="['/device', context.value]">{{ context.value }}</a>
+      </ng-container>
+    </c8y-column>
+    <c8y-column name="lastUpdated">
+      <ng-container *c8yCellRendererDef="let context">
+        {{ context.value | date: "dd MMM yyyy, HH:mm:ss" }}
+      </ng-container>
+    </c8y-column>
+  </c8y-data-grid>
+</div>

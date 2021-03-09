@@ -1,10 +1,10 @@
 {
-  "name": "Runtime Loaded Widget",
-  "contextPath": "cumulocity-runtime-widget",
-  "key": "cumulocity-runtime-widget-application-key",
+  "name": "Advanced Asset Widget",
+  "contextPath": "cumulocity-advanced-asset-widget",
+  "key": "cumulocity-advanced-asset-widget-application-key",
   "contentSecurityPolicy": "default-src 'self'",
   "icon": {
-    "class": "fa fa-puzzle-piece"
+    "class": "c8y-grid"
   },
   "manifest": {
     "noAppSwitcher": true
