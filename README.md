@@ -9,11 +9,14 @@ The demo is based on the latest tutorial app, cut down to just the dashboard com
 cd demo
 npm i --legacy-peer-deps
 ```
-2. Run
+2. Target your tenant
+```
+npm run start -u https://your.tenant.com/
+```
+3. Start
 ```
 npm run start
 ```
-3. Navigate to the dashboard
 
 ## Changes
 
