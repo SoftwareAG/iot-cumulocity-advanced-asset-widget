@@ -7,6 +7,7 @@ import {
 } from "@c8y/ngx-components";
 import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
 import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasource.service";
+import { ViewEncapsulation } from "@angular/core";
 
 @Component({
   providers: [AdvancedAssetWidgetDatasource],
@@ -19,6 +20,7 @@ import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasourc
       }
     `,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedAssetWidgetComponent {
   @Input() set config(cfg: AdvancedAssetWidgetConfig) {

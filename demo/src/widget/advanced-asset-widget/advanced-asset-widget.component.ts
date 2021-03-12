@@ -18,6 +18,11 @@ import { ViewEncapsulation } from "@angular/core";
       .sort-fix .resize-handle {
         width: 0px;
       }
+
+      #cdk-drop-list-1 {
+        color: white
+        opacity: 1 
+      }
     `,
   ],
   encapsulation: ViewEncapsulation.None,
