@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "c8ycli server -p 9008 -u https://alliander.cumulocity.com/",
+    "start": "c8ycli server -p 9010 -u https://alliander.cumulocity.com/",
     "build": "c8ycli build",
     "deploy": "c8ycli deploy"
   },

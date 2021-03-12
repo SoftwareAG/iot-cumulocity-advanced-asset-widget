@@ -1,0 +1,8 @@
+.sort-fix .resize-handle {
+  width: 0px;
+}
+
+.p-16 {
+  padding: 16px;
+  height: 425px;
+}

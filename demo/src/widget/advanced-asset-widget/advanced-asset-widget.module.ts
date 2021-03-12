@@ -47,15 +47,15 @@ const routes = [];
         previewImage: require("./previewImage.png"),
         data: {
           settings: {
-            noNewWidgets: false,          // Set this to true, to don't allow adding new widgets.
+            noNewWidgets: false, // Set this to true, to don't allow adding new widgets.
             ng1: {
               options: {
-                noDeviceTarget: false,     // Set this to true to hide the device selector.
-                groupsSelectable: true,  // Set this, if not only devices should be selectable.
-              }
-            }
-          }
-        } as ContextWidgetConfig
+                noDeviceTarget: false, // Set this to true to hide the device selector.
+                groupsSelectable: true, // Set this, if not only devices should be selectable.
+              },
+            },
+          },
+        } as ContextWidgetConfig,
       },
     },
   ],

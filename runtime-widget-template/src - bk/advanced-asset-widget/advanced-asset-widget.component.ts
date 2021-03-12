@@ -12,18 +12,13 @@ import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasourc
   providers: [AdvancedAssetWidgetDatasource],
   selector: "advanced-data-grid",
   templateUrl: "./advanced-asset-widget.component.html",
-  styles: [
-    `
-      .sort-fix .resize-handle {
-        width: 0px;
-      }
-    `,
-  ],
+  styleUrls: ["./advanced-asset-widget.component.css"],
 })
 export class AdvancedAssetWidgetComponent {
   @Input() set config(cfg: AdvancedAssetWidgetConfig) {
+    //alert(JSON.stringify(cfg, null, 4)); // by FKA
     this.title = cfg.title;
-    this.datasource.config = cfg;
+    this.datasource.config = cfg; 
   }
   title: string;
   columns: Column[];
@@ -49,9 +44,8 @@ export class AdvancedAssetWidgetComponent {
 
   getDefaultColumns(): Column[] {
     return [
-      {
-        name: "id",
-        header: "ID",
+      { name: "id", 
+        header: "ID", 
         path: "id",
         sortable: true,
         filterable: true,
@@ -65,30 +59,30 @@ export class AdvancedAssetWidgetComponent {
         filterable: true,
       },
       {
-        name: "cmdb_properties.order_nr",
+        name: "cmdb_properties.OrderNr",  
         header: "Order Nummer",
-        path: "cmdb_properties.order_nr",
+        path: "cmdb_properties.OrderNr", 
         sortable: true,
         filterable: true,
       },
       {
-        name: "cmdb_properties.case_id",
+        name: "cmdb_properties.CaseId",  
         header: "Case Id",
-        path: "cmdb_properties.case_id",
+        path: "cmdb_properties.CaseId", 
         sortable: true,
         filterable: true,
       },
       {
-        name: "cmdb_properties.charge_nr",
+        name: "cmdb_properties.ChargeNr",  
         header: "Charge Nummer",
-        path: "cmdb_properties.charge_nr",
+        path: "cmdb_properties.ChargeNr", 
         sortable: true,
         filterable: true,
       },
       {
-        name: "cmdb_properties.artikel_nr",
+        name: "cmdb_properties.ArticleNr",  
         header: "Artikel Nummer",
-        path: "cmdb_properties.artikel_nr",
+        path: "cmdb_properties.ArticleNr", 
         sortable: true,
         filterable: true,
       },

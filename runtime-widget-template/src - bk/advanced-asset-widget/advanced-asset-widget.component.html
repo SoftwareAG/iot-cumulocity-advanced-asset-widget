@@ -1,7 +1,7 @@
-<div class="split-scroll">
+<div class="p-16">
   <c8y-data-grid
-    [title]="title ? title : ('Assets' | translate)"
-    class="scroll-column"
+    [title]="title ? title : 'Assets' | translate"
+    class="sort-fix"
     [noMatchingItemsLabel]="'No matching devices.'"
     [columns]="columns"
     [pagination]="datasource.pagination"

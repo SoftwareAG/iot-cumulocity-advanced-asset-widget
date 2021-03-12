@@ -7,6 +7,7 @@ import {
 } from "@c8y/ngx-components";
 import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
 import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasource.service";
+import { ViewEncapsulation } from "@angular/core";
 
 @Component({
   providers: [AdvancedAssetWidgetDatasource],
@@ -14,11 +15,12 @@ import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasourc
   templateUrl: "./advanced-asset-widget.component.html",
   styles: [
     `
-      .sort-fix.resize-handle {
-        width: 0;
+      .sort-fix .resize-handle {
+        width: 0px;
       }
     `,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdvancedAssetWidgetComponent {
   @Input() set config(cfg: AdvancedAssetWidgetConfig) {
@@ -49,12 +51,46 @@ export class AdvancedAssetWidgetComponent {
 
   getDefaultColumns(): Column[] {
     return [
-      { name: "id", header: "ID", path: "id" },
+      {
+        name: "id",
+        header: "ID",
+        path: "id",
+        sortable: true,
+        filterable: true,
+      },
       {
         name: "name",
         header: "Name",
         path: "name",
         dataType: ColumnDataType.TextShort,
+        sortable: true,
+        filterable: true,
+      },
+      {
+        name: "cmdb_properties.order_nr",
+        header: "Order Nummer",
+        path: "cmdb_properties.order_nr",
+        sortable: true,
+        filterable: true,
+      },
+      {
+        name: "cmdb_properties.case_id",
+        header: "Case Id",
+        path: "cmdb_properties.case_id",
+        sortable: true,
+        filterable: true,
+      },
+      {
+        name: "cmdb_properties.charge_nr",
+        header: "Charge Nummer",
+        path: "cmdb_properties.charge_nr",
+        sortable: true,
+        filterable: true,
+      },
+      {
+        name: "cmdb_properties.artikel_nr",
+        header: "Artikel Nummer",
+        path: "cmdb_properties.artikel_nr",
         sortable: true,
         filterable: true,
       },

@@ -13,6 +13,7 @@ import {
   IdReference,
 } from "@c8y/client";
 import { AdvancedAssetWidgetConfig } from "./advanced-asset-widget-config.component";
+import { stringify } from "@angular/compiler/src/util";
 
 @Injectable()
 export class AdvancedAssetWidgetDatasource {
@@ -27,13 +28,26 @@ export class AdvancedAssetWidgetDatasource {
   private readonly queriesUtil = new QueriesUtil();
 
   set config(cfg: AdvancedAssetWidgetConfig) {
-    this.groupOrDeviceId = cfg && cfg.device ? cfg.device.id : -1;
-    //   this.BASE_QUERY = {
-    //       fragmentType: 'c8y_IsGroup',
-    //       id: cfg.id
-    //   }
+    /*cfg = {
+      title: "This is ....",
+      device: {
+        name: "Some Name",
+        id: "117211", //153962 , 117211, 12727
+      },
+    };*/
+    if (cfg && cfg.device) {
+      // Extract group or device id
+      this.BASE_QUERY = {
+        __has: "c8y_IsDevice",
+      };
+      this.groupOrDeviceId = cfg.device.id;
+    } else {
+      this.BASE_QUERY = {
+        __has: "c8y_IsDevice",
+      };
+    }
   }
-  private groupOrDeviceId: IdReference = -1;
+  private groupOrDeviceId: IdReference = null;
   /**
    * The query to be used if the table loads without any column filters.
    */
@@ -70,6 +84,7 @@ export class AdvancedAssetWidgetDatasource {
       ...devicesResponse,
     };
 
+    console.log("The data from backend: " + JSON.stringify(result, null, 4));
     return result;
   }
 
@@ -85,7 +100,10 @@ export class AdvancedAssetWidgetDatasource {
       currentPage: pagination.currentPage,
       withTotalPages: false,
     };
-    return this.inventoryService.childAssetsList(parentReference, filters);
+
+    return this.groupOrDeviceId
+      ? this.inventoryService.childAssetsList(parentReference, filters)
+      : this.inventoryService.list(filters);
   }
 
   /**
@@ -102,9 +120,10 @@ export class AdvancedAssetWidgetDatasource {
       currentPage: 1,
       withTotalPages: true,
     };
-    return this.inventoryService
-      .childAssetsList(parentReference, filters)
-      .then((result) => result.paging.totalPages);
+    const fetch = parentReference
+      ? this.inventoryService.childAssetsList(parentReference, filters)
+      : this.inventoryService.list(filters);
+    return fetch.then((result) => result.paging.totalPages);
   }
 
   private createQueryFilter(columns: Column[]): { query: string } {
