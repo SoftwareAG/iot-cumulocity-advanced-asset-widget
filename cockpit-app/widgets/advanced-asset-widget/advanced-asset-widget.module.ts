@@ -3,7 +3,7 @@ import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
-import { CoreModule, HOOK_COMPONENTS } from "@c8y/ngx-components";
+import { CoreModule, HOOK_COMPONENTS, Route } from "@c8y/ngx-components";
 
 import { AdvancedAssetWidgetComponent } from "./advanced-asset-widget.component";
 import { AdvancedAssetWidgetConfigComponent } from "./advanced-asset-widget-config.component";
@@ -15,7 +15,7 @@ import { ContextWidgetConfig } from "@c8y/ngx-components/context-dashboard";
 
 // You can also import css from a module
 // import 'some-module/styles.css'
-const routes = [];
+const routes: Route[] = [];
 
 @NgModule({
   imports: [

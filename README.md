@@ -2,46 +2,65 @@
 
 ![Sample image of the advanced asset widget](./runtime-widget-template/styles/previewImage.png)
 
-This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid, as
-it already offers builtin functionality such as:
+This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid.
+## Overview
+
+The target of this repository is to provide an example implementation of the c8y-data-grid - in this case by acting as `asset widget`. You can easily buid upon it and enhance the functionalities because of the feature richness of the c8y-data-grid, which offers builtin functionality such as:
 - pagination
 - lazy loading
 - filtering
 - sortation
 - mobile layout
-and is continously maintained and improved by the Cumulocity RnD team.
+and is continously maintained and improved by the Cumulocity RnD team :) 
 
-## Target of this repository
+In the current implementation, the grid component is using pagination and performing filtration and sortation on the cloud-site. This means pagination is active and the grid component is connected to a service which acts as a datasource. The provided example is still very basic - only the filtration on strings is supported at the moment.
 
-The target is to showcase the c8y-data-grid by building a customizable asset widget. You can easily buid upon it and enhance the functionalities because of the feature richness of the c8y-data-grid. 
+In principle the datasource needs to do 3 queries:
+* count all entries if no filtration is done
+* count all entries if current filtration is applied
+* return resultset of the current query (containign the actual data and pagination info)
+
+If the user now would set a filter for example on the name column of the grid, the onDataSourceModifier method would get invoked on the datasource. Our task is then to create a query based upon the filter and sortation settings the user has set - this is done in the createQueryFilter method.
+
+The fetchCount methods basically work by setting the pageSize to exactly one so that one page would always contain just one element. If the responses pagination info would then contain 36 totalPages, we would know that there are exactly 36 devices matching our filter criteria. Unfortuntely there is no other way to retrieve the exact count - with a larger pageSize we would not know how many elements the last page would contain. Keep in mind though that such requests are very expensive! 
 
 ## Structure of this repository
 
-You can find a working demo under the demo folder. If you want to deplyo the widget right away on your tenant, cd into the runtime-widget-template folder and follow the steps outlined there. The id of the widget is advanced.asset.widget.
-##  Demo
+You can find a customized cockpit app under the `cockpit-app` folder. It's really just the plain cockpit app with a `widgets` folder containing the advanced-assets-widget. The folder `runtime-widget-template` contains the same widget ready to be deployed via application builder. 
 
-The demo is based on the latest tutorial app, cut down to just the dashboard components and with the advanced asset widget added. 
+## Deployment
+
+You have two options:
+1. You can deploy the cockpit app onto your tenant using:
+```
+cd cockpit-app
+npm i
+npm run build
+npm run deploy
+```
+Make sure to change the target tenant in the package.json!
+
+2. You can go the runtime widget loader way:
+If you intend to use the presales application builder tool with its widget upload wizard, you can follow the steps in the readme under the runtime-widget-template folder.
+
+
+## Development
+
+If you want to run locally you can use the cockpit-app folder. 
 
 1. Install the dependencies:
 ```
-cd demo
-npm i --legacy-peer-deps
+cd cockpit-app
+npm i
 ```
-2. Target your tenant
+2. Start up against the tenant of your choice
 ```
 npm run start -u https://your.tenant.com/
 ```
-3. Start
-```
-npm run start
-```
 
-## Contribution
+Since the widget code exists on 2 places, please make sure to keep both places up-to-date When doing changes on the widget.
 
-When doing changes on the code please also update the demo code:
-
-1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget
-
+1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget or vice versa
 2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css'
 
 ------------------------------

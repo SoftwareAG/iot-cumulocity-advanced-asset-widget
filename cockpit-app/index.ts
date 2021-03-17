@@ -1,10 +1,9 @@
 import './polyfills';
+import './ng1';
 
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app.module';
-
-import './locales/pt_BR.po';
 
 declare const __MODE__: string;
 if (__MODE__ === 'production') {
@@ -12,6 +11,7 @@ if (__MODE__ === 'production') {
 }
 
 export function bootstrap() {
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule).catch((err) => console.log(err));
+  return platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.log(err));
 }

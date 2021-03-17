@@ -14,7 +14,7 @@ import { AdvancedAssetWidgetDatasource } from "./advanced-asset-widget-datasourc
   templateUrl: "./advanced-asset-widget.component.html",
   styles: [
     `
-      .sort-fix.resize-handle {
+      .sort-fix .resize-handle {
         width: 0;
       }
     `,
