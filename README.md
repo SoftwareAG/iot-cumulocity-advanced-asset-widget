@@ -114,7 +114,7 @@ I already did it for the **id** and **lastUpdated** columns:
 		</c8y-column>
 		...
 	</c8y-data-grid>
-The name of the c8y-column needs to match the value of the name attribute of the column you want to customize.
+> The name of the c8y-column needs to match the value of the name attribute of the column you want to customize.
 
 Or you can change the columns behavior and style by creating **your own cell renderer components**. Just create a new component and add that to the column configuration in *getDefaultColumns* by using the *cellRendererComponent* property. Make sure to add the render component as entry component in the *advanced-assets-widget.module.ts*.
 
