@@ -75,9 +75,9 @@ The *fetchCount* methods basically work by setting the pageSize to exactly one s
 
 The configuration currently only contains 3 fields:
 
-* Title
-* Group/ Device selection
-* Table name input
+* Title (1)
+* Group/ Device selection (2)
+* Table name input (3)
 
 **Title**
 The title is added by default, nor did we add neither can we remove that.
