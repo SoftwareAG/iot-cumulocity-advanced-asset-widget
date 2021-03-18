@@ -1,5 +1,5 @@
 
-# Advanced Asset Widget for Cumulocity IoT platform
+# Cumulocity Advanced Asset Widget
 
 ![Sample image of the advanced asset widget](./runtime-widget-template/styles/previewImage.png)
 
