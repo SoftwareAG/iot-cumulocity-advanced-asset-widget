@@ -9,7 +9,7 @@ In the configuration of the widget you can choose either a group or device, prov
 ## Overview
 The target of this repository is to provide an example implementation of the **c8y-data-grid** - in this case by wrapping it into a widget. The implementation of the grid is very basic. It shall act as a blueprint/ starting point for your own table widget.
 
-You can find a customized cockpit app under the `cockpit-app` folder. It's really just the plain cockpit app with a `widgets` folder containing the advanced-assets-widget. The folder `runtime-widget-template` contains the same widget ready to be deployed via application builder.
+You can find a customized cockpit app under the `cockpit-app` folder. It's really just the plain cockpit app with extended by a `widgets` folder containing the advanced-assets-widget. The folder `runtime-widget-template` contains the same widget ready to be deployed via application builder.
 
 ## Development
 
@@ -37,14 +37,17 @@ $ npm run deploy
 > Make sure to change the target tenant in the package.json!
 
 2. You can go the **runtime widget loader** route:
+If you intend to use the presales *application builder tool* with its widget upload wizard, you can follow the steps in the readme under the runtime-widget-template folder - here a short excerpt:
+```
+$ npm i
+$ npm run build
+```
+After the build completes, the `/dist` folder will contain a `widget.zip` file. This is your deployable widget.
+In the application builder you can now upload the widget using the upload widget wizard. For more information please check out the documentation for the [Cumulocity IoT Runtime Widget Loader](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader)
 
-If you intend to use the presales *application builder tool* with its widget upload wizard, you can follow the steps in the readme under the runtime-widget-template folder.
-
-Since the widget code exists on 2 places, please make sure to keep both places up-to-date When doing changes on the widget.
-
-1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget or vice versa
-
-2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css'
+> Since the widget code exists on 2 places, please make sure to keep both places up-to-date When doing changes on the widget.
+> 1. Copy the contents from runtime-widget-template/src/advanced-asset-widget to demo/src/widget/advanced-asset-widget or vice versa
+> 2. In the advanced-asset-widget.module.ts comment out import 'some-module/styles.css'
 
 ## Feel the power of c8y-data-grid!
 Just create a fork and get your hands on the awesome and  feature rich c8y-data-grid.
@@ -66,40 +69,44 @@ In principle the datasource needs to do 3 queries:
 * count all entries if current filtration is applied
 * return resultset of the current query (containign the actual data and pagination info)
 
-If the user now would set a filter for example on the name column of the grid, the *onDataSourceModifier* method would get invoked on the datasource. Our task is then to create a query based upon the filter and sortation settings the user has set - this is done in the *createQueryFilter* method.
+*Example*
+If the user would set a filter on the name column of the grid, the *onDataSourceModifier* method would get invoked on the datasource as soon as the user applies the filter. Our task is then to create a query based upon the filter and sortation configuration that the user has set. This translation of the column information to a query string is done in the *createQueryFilter* method. It already can handle string filter queries and sortation.
 
-The *fetchCount* methods basically work by setting the pageSize to exactly one so that one page would always contain just one element. If the responses pagination info would then contain 36 totalPages, we would know that there are exactly 36 devices matching our filter criteria. Unfortunately there is no other way to retrieve the exact count - with a larger pageSize we would not know how many elements the last page would contain. Keep in mind though that such requests are very expensive!
+*Why fetch the count?*
+The count information is needed so that the table nows how much elements are displayed on the current page, how many pages exist and how many elements exist in total. 
+
+The *fetchCount* methods basically work by setting the pageSize to exactly one so that one page would always contain just one element. If the responses pagination info would then contain 36 totalPages, we would know that there are exactly 36 elements matching our filter criteria. Unfortunately there is no other way to retrieve the exact count - with a pageSize > 1 we would not know how many elements the last page would contain and thus could not provide exact values. 
+> Please keep in mind that count requests using withTotalPages: true combined with a pageSize: 1 are very expensive!
 
 ### Widget Configuration dialog
 
 ![Configuration dialog](./docs/configuration-dialog.png)
 
-The configuration currently only contains 3 fields:
-
+The configuration currently contains the following fields:
 * Title (1)
 * Group/ Device selection (2)
 * Table name input (3)
 
 **Title**
-The title is added by default, nor did we add neither can we remove that.
+The widget title input is added automatically by ngx-components, neither did we add it, nor can we remove it.
 
 **Group/ Device selection**
-The group/ device selection was added by setting *groupsSelectable: true* in the *advanced-asset-widget.module.ts*. Since this selection currently still is written in AngularJS, you can only see it when adding the widget to a hybrid project such as the cockpit app. On a native Angular app you would not see the group selector during development, but as soon as you'd deploy the widget to the tenant.
+The group/ device selection gets added by setting *groupsSelectable: true* in the *advanced-asset-widget.module.ts*. During development, you can only see this selection working on a hybrid project such as the cockpit app. The reason is that this component is still written in AngularJS. On a native Angular app (e.g. the tutorial app) you would not see the group selector during development, but as soon as you'd deploy the widget to the tenant.
 
 **Table name input**
 The table name input can be found in the *advanced-asset-widget-config.component.ts*. 
 
 **Extending the configuration** 
-You can easily add more inputs - just add them to the HTML markdown in the *advanced-asset-widget-config.component.ts*. The important part is to bind the output of these inputs to the config property so that it can be accessed from the other parts of the widget. 
+You can easily add more inputs - just add them to the HTML markup in the *advanced-asset-widget-config.component.ts*. The important part is to bind the value of these inputs to the config property so that the user input is accessible on other parts of the widget (e.g. the datasource). 
 
 The *onBeforeSave* method currently always returns true. If you for example add required fields, make sure to add some validation logics there. I added the return type intentionally - as you can see it is also possible to return boolean Promises or Observables, meaning if you need to do a query in order to validate, this is possible, too!
 
 ### Customize your table!
 
 **Column Layout**
-Feel free to temper with the layout of the columns of the grid, either by defining **your own content projection** inside the *advanced-asset-widget.component.html*.
+Feel free to play with the layout of the columns of the grid, either by defining **your own content projection** inside the *advanced-asset-widget.component.html*.
 
-I already did it for the **id** and **lastUpdated** columns:
+We already did it for the **id** and **lastUpdated** columns:
 
     <c8y-data-grid ...>
 	    ...
@@ -117,7 +124,10 @@ I already did it for the **id** and **lastUpdated** columns:
 	</c8y-data-grid>
 > The name of the c8y-column needs to match the value of the name attribute of the column you want to customize.
 
-Or you can change the columns behavior and style by creating **your own cell renderer components**. Just create a new component and add that to the column configuration in *getDefaultColumns* by using the *cellRendererComponent* property. Make sure to add the render component as entry component in the *advanced-assets-widget.module.ts*.
+Or you can change the columns behavior and style by creating **your own cell renderer components**. Just create a new component and add that to the column configuration in *getDefaultColumns* by using the *cellRendererComponent* property. Make sure to add your new render component to the entryComponents and declarations arrays in the *advanced-assets-widget.module.ts*.
+
+**Custom Filter**
+Will be added soon.
 
 ------------------------------
 These tools are provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
