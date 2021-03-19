@@ -3,9 +3,11 @@
 
 ![Sample image of the advanced asset widget](./runtime-widget-template/styles/previewImage.png)
 
-This project contains the advanced asset widget. It is a custom widget, which is build upon the c8y-data-grid.
+This project contains the advanced asset widget. It is a custom widget, build using the c8y-data-grid, displaying the child assets of a managed object.
+In the configuration of the widget you can choose either a group or device, provide a title for the widget and a title for the table.
+
 ## Overview
-The target of this repository is to provide an example implementation of the **c8y-data-grid** - in this case by wrapping it into a widget. The implementation of the grid is very basic and rudimentary and shall act as a blueprint/ starting point for your own table widget.
+The target of this repository is to provide an example implementation of the **c8y-data-grid** - in this case by wrapping it into a widget. The implementation of the grid is very basic. It shall act as a blueprint/ starting point for your own table widget.
 
 You can find a customized cockpit app under the `cockpit-app` folder. It's really just the plain cockpit app with a `widgets` folder containing the advanced-assets-widget. The folder `runtime-widget-template` contains the same widget ready to be deployed via application builder.
 
@@ -54,7 +56,6 @@ The grid is continuously maintained and improved by the Cumulocity RnD team and 
 - mobile layout
 - actions per row
 - bulk actions
-
  
 ### What can I find here? 
 In the current implementation, the grid component is implemented as if a big dataset was expected. In order to improve the performance, it is using **pagination** and performing **filtration** and **sortation** on the cloud-site. This means pagination is enabled and the grid component is connected to a service which acts as a datasource. The provided example is very basic - only the natively supported filtration on strings is possible at the moment.
